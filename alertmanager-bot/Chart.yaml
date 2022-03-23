@@ -14,7 +14,7 @@ keywords:
   - alerting
   - prometheus
 
-home: https://github.com/Falseclock/alertmanager-bot
+home: https://github.com/Falseclock/charts/tree/main/alertmanager-bot
 
 sources:
   - https://hub.docker.com/r/metalmatze/alertmanager-bot
