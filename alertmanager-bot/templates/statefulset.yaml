@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "alertmanager-bot.name" . }}
+  labels:
+    {{- include "alertmanager-bot.labels" . | nindent 4 }}
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "alertmanager-bot.labels" . | nindent 6 }}
+  serviceName: {{ include "alertmanager-bot.name" . }}
+  template:
+    metadata:
+      labels:
+        {{- include "alertmanager-bot.labels" . | nindent 8 }}
+      name: {{ include "alertmanager-bot.name" . }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      restartPolicy: Always
+      containers:
+        - args:
+            {{- toYaml .Values.alertmanager.args | nindent 12 }}
+          env:
+          {{- range $name, $value := .Values.env }}
+            {{- if not (empty $value) }}
+            - name: {{ $name | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+          {{- end }}
+            - name: TELEGRAM_ADMIN
+              valueFrom:
+                secretKeyRef:
+                  key: admin
+                  name: {{ include "alertmanager-bot.name" . }}
+            - name: TELEGRAM_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: token
+                  name: {{ include "alertmanager-bot.name" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          name: {{ include "alertmanager-bot.name" . }}
+          ports:
+            - containerPort: {{ .Values.service.targetPort }}
+              name: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

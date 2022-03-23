@@ -1,0 +1,13 @@
+Congratulations!
+
+To test your bot issue commands towards your alert-manager.
+
+Example:
+
+To fire alert:
+curl -XPOST http://127.0.0.1:9093/api/v1/alerts -d '[{"status": "firing","labels": {"alertname": "test-alert","severity": "warning"},"annotations": {"summary": "test"},"startsAt": "2021-03-21T09:45:36+06:00"}]'
+
+To cease alert:
+curl -XPOST http://127.0.0.1:9093/api/v1/alerts -d '[{"status": "resolved","labels": {"alertname": "test-alert","severity": "warning"},"annotations": {"summary": "test"},"startsAt": "2021-03-21T09:45:00+00:00","endsAt": "2021-03-21T09:55:00+00:00"}]'
+
+Enjoy your bot.

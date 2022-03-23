@@ -1,1 +1,1 @@
-# alertmanager-bot
+# Helm charts

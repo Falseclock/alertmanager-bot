@@ -1,0 +1,30 @@
+apiVersion: v2
+version: 0.0.1
+name: alertmanager-bot
+description: Bot for Prometheus Alertmanager
+type: application
+appVersion: "0.4.3"
+
+kubeVersion: ">= 1.19.0-0"
+
+keywords:
+  - alertmanager
+  - telegram
+  - bot
+  - alerting
+  - prometheus
+
+home: https://github.com/Falseclock/alertmanager-bot
+
+sources:
+  - https://hub.docker.com/r/metalmatze/alertmanager-bot
+  - https://github.com/metalmatze/alertmanager-bot
+
+maintainers:
+  - name: Nurlan Mukhanov
+    email: nurike@gmail.com
+
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial release
