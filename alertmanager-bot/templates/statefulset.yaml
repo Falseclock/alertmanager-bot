@@ -37,11 +37,13 @@ spec:
                 secretKeyRef:
                   key: admin
                   name: {{ include "alertmanager-bot.name" . }}
+                  optional: false
             - name: TELEGRAM_TOKEN
               valueFrom:
                 secretKeyRef:
                   key: token
                   name: {{ include "alertmanager-bot.name" . }}
+                  optional: false
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           name: {{ include "alertmanager-bot.name" . }}
